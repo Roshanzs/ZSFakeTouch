@@ -139,30 +139,33 @@
 
 -(void)sliderClick{
     
-    NSLog(@"num = %d",self.num);
     switch (self.num) {
         case 1:
         {
-            [ZSFakeTouch beginTouchWithPoint:CGPointMake(160,40)];
-            [ZSFakeTouch moveTouchWithPoint:CGPointMake(300,40)];
+            [ZSFakeTouch beginTouchWithPoint:CGPointMake(170,60)];
+            [ZSFakeTouch moveTouchWithPoint:CGPointMake(240,60)];
+            [ZSFakeTouch endTouchWithPoint:CGPointMake(240,60)];
         }
             break;
         case 2:
         {
-            [ZSFakeTouch beginTouchWithPoint:CGPointMake(300,40)];
-            [ZSFakeTouch moveTouchWithPoint:CGPointMake(180,40)];
+            [ZSFakeTouch beginTouchWithPoint:CGPointMake(240,60)];
+            [ZSFakeTouch moveTouchWithPoint:CGPointMake(310,60)];
+            [ZSFakeTouch endTouchWithPoint:CGPointMake(310,60)];
         }
             break;
         case 3:
         {
-            [ZSFakeTouch beginTouchWithPoint:CGPointMake(180,40)];
-            [ZSFakeTouch moveTouchWithPoint:CGPointMake(250,40)];
+            [ZSFakeTouch beginTouchWithPoint:CGPointMake(310,60)];
+            [ZSFakeTouch moveTouchWithPoint:CGPointMake(350,60)];
+            [ZSFakeTouch endTouchWithPoint:CGPointMake(350,60)];
         }
             break;
         case 4:
         {
-            [ZSFakeTouch beginTouchWithPoint:CGPointMake(250,40)];
-            [ZSFakeTouch moveTouchWithPoint:CGPointMake(160,40)];
+            [ZSFakeTouch beginTouchWithPoint:CGPointMake(350,60)];
+            [ZSFakeTouch moveTouchWithPoint:CGPointMake(170,60)];
+            [ZSFakeTouch endTouchWithPoint:CGPointMake(170,60)];
         }
             break;
         default:
@@ -173,7 +176,7 @@
 
 -(void)btnClick:(UIButton *)btn{
     btn.selected = !btn.selected;
-    NSLog(@"tex= %@",self.tex1.text);
+    NSLog(@"文本框文字 = %@",self.tex1.text);
 }
 
 
