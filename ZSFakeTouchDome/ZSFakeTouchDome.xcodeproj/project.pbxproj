@@ -175,7 +175,7 @@
 				TargetAttributes = {
 					8BDEE9171F55739E00E9930C = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 3LVRZF468V;
+						DevelopmentTeam = 29WV9763CF;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -185,6 +185,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -345,7 +346,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 3LVRZF468V;
+				DEVELOPMENT_TEAM = 29WV9763CF;
 				INFOPLIST_FILE = ZSFakeTouchDome/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stark.ZSFakeTouchDome;
@@ -357,7 +358,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 3LVRZF468V;
+				DEVELOPMENT_TEAM = 29WV9763CF;
 				INFOPLIST_FILE = ZSFakeTouchDome/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stark.ZSFakeTouchDome;
@@ -384,6 +385,7 @@
 				8BDEE9311F55739E00E9930C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
