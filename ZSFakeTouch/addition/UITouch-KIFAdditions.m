@@ -29,15 +29,15 @@ typedef struct {
 
 - (id)initInView:(UIView *)view;
 {
-    CGRect frame = view.frame;    
+    CGRect frame = view.frame;
     CGPoint centerPoint = CGPointMake(frame.size.width * 0.5f, frame.size.height * 0.5f);
     return [self initAtPoint:centerPoint inView:view];
 }
 
 - (id)initAtPoint:(CGPoint)point inWindow:(UIWindow *)window;
 {
-	self = [super init];
-	if (self == nil) {
+    self = [super init];
+    if (self == nil) {
         return nil;
     }
     
@@ -47,13 +47,27 @@ typedef struct {
     //[self setTapCount:1];
     [self _setLocationInWindow:point resetPrevious:YES];
     
-	UIView *hitTestView = [window hitTest:point withEvent:nil];
+    UIView *hitTestView = [window hitTest:point withEvent:nil];
     
     [self setView:hitTestView];
     [self setPhase:UITouchPhaseBegan];
-//    NSLog(@"initAtPoint setPhase 0");
-    [self _setIsFirstTouchForView:YES];
-    [self setIsTap:NO];
+    NSLog(@"initAtPoint setPhase 0");
+    if ([self respondsToSelector:@selector(_setIsFirstTouchForView:)]) {
+        [self setIsTap:YES];
+        [self _setIsFirstTouchForView:YES];
+    } else {
+        [self _setIsTapToClick:YES];
+        // We modify the touchFlags ivar struct directly.
+        // First entry is _firstTouchForView
+        Ivar flagsIvar = class_getInstanceVariable(object_getClass(self), "_touchFlags");
+        
+        ptrdiff_t touchFlagsOffset = ivar_getOffset(flagsIvar);
+        char *flags = (__bridge void *)self + touchFlagsOffset;
+        *flags = *flags | (char)0x01;
+    }
+    
+    
+    
     [self setTimestamp:[[NSProcessInfo processInfo] systemUptime]];
     if ([self respondsToSelector:@selector(setGestureView:)]) {
         [self setGestureView:hitTestView];
@@ -65,7 +79,7 @@ typedef struct {
         [self kif_setHidEvent];
     }
     
-	return self;
+    return self;
 }
 
 - (void)resetTouch{
@@ -81,9 +95,21 @@ typedef struct {
     
     [self setView:hitTestView];
     [self setPhase:UITouchPhaseBegan];
-    //DLog(@"resetTouch setPhase 0");
-    [self _setIsFirstTouchForView:YES];
-    [self setIsTap:NO];
+    //NSLog(@"resetTouch setPhase 0");
+    if ([self respondsToSelector:@selector(_setIsFirstTouchForView:)]) {
+        [self setIsTap:YES];
+        [self _setIsFirstTouchForView:YES];
+    } else {
+        [self _setIsTapToClick:YES];
+        // We modify the touchFlags ivar struct directly.
+        // First entry is _firstTouchForView
+        Ivar flagsIvar = class_getInstanceVariable(object_getClass(self), "_touchFlags");
+        
+        ptrdiff_t touchFlagsOffset = ivar_getOffset(flagsIvar);
+        char *flags = (__bridge void *)self + touchFlagsOffset;
+        *flags = *flags | (char)0x01;
+    }
+    
     [self setTimestamp:[[NSProcessInfo processInfo] systemUptime]];
     if ([self respondsToSelector:@selector(setGestureView:)]) {
         [self setGestureView:hitTestView];
@@ -98,7 +124,7 @@ typedef struct {
 
 - (id)initTouch;
 {
-    //DLog(@"init...touch...");
+    //NSLog(@"init...touch...");
     self = [super init];
     if (self == nil) {
         return nil;
@@ -113,9 +139,21 @@ typedef struct {
     
     [self setView:hitTestView];
     [self setPhase:UITouchPhaseEnded];
-    //DLog(@"init...touch...setPhase 3");
-    [self _setIsFirstTouchForView:YES];
-    [self setIsTap:NO];
+    //NSLog(@"init...touch...setPhase 3");
+    if ([self respondsToSelector:@selector(_setIsFirstTouchForView:)]) {
+        [self setIsTap:YES];
+        [self _setIsFirstTouchForView:YES];
+    } else {
+        [self _setIsTapToClick:YES];
+        // We modify the touchFlags ivar struct directly.
+        // First entry is _firstTouchForView
+        Ivar flagsIvar = class_getInstanceVariable(object_getClass(self), "_touchFlags");
+        ptrdiff_t touchFlagsOffset = ivar_getOffset(flagsIvar);
+        char *flags = (__bridge void *)self + touchFlagsOffset;
+        *flags = *flags | (char)0x01;
+    }
+    
+    
     [self setTimestamp:[[NSProcessInfo processInfo] systemUptime]];
     if ([self respondsToSelector:@selector(setGestureView:)]) {
         [self setGestureView:hitTestView];
@@ -128,6 +166,7 @@ typedef struct {
     }
     return self;
 }
+
 
 - (id)initAtPoint:(CGPoint)point inView:(UIView *)view;
 {
@@ -147,7 +186,7 @@ typedef struct {
 
 - (void)setPhaseAndUpdateTimestamp:(UITouchPhase)phase
 {
-//    NSLog(@"setPhaseAndUpdateTimestamp : %ld",(long)phase);
+    //NSLog(@"setPhaseAndUpdateTimestamp : %ld",(long)phase);
     [self setTimestamp:[[NSProcessInfo processInfo] systemUptime]];
     [self setPhase:phase];
 }
