@@ -1,4 +1,6 @@
 {
+  "provider": "OrcaRouter",
   "ref": "ref_f4b6e24966e9e709d8c9",
-  "provider": "OrcaRouter"
+  "enabled": true,
+  "baseUrl": "https://api.orcarouter.com/v1"
 }
